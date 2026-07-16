@@ -16,8 +16,11 @@
     "typescript": "^5"
   },
   "dependencies": {
+    "@corsair-dev/gmail": "^0.1.4",
+    "@corsair-dev/googlecalendar": "^0.1.5",
     "@prisma/adapter-libsql": "^7.8.0",
     "@prisma/client": "^7.8.0",
+    "corsair": "^0.1.102",
     "express": "^5.2.1"
   }
 }
