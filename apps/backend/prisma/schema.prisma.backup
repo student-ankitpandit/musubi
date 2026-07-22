@@ -12,12 +12,152 @@ datasource db {
   provider = "postgresql"
 }
 
-model user {
+model User {
   id         String       @id       @default(cuid())
   email      String       @unique
   name       String?
   imageUrl   String?
   createdAt  DateTime     @default(now()) 
-  updatedAt  DateTime     @updatedAt     
+  updatedAt  DateTime     @updatedAt
+
+  corsairTenantId String? @unique       
+
+  sessions Session[]
+  accounts Account[]
+
+  integrations Integration[]
+  threads      Thread[]
+  chats        Chat[]
+  queueItems   QueueItem[]
+  toolCalls    ToolCall[]
 }
 
+model Thread {
+  id            String    @id @default(cuid())
+  userId        String
+  gmailThreadId String
+  subject       String
+  snippet       String?
+  isPriority    Boolean   @default(false)
+  isRead        Boolean   @default(true)
+  labels        String[]
+  lastMessageAt DateTime
+  createdAt     DateTime  @default(now())
+
+  aiSummary    String?
+  urgency      Urgency?
+  summarizedAt DateTime?
+
+  user       User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  messages   Message[]
+  queueItems QueueItem[]
+
+  @@unique([userId, gmailThreadId])
+  @@index([userId, lastMessageAt])
+}
+
+enum Urgency {
+  LOW
+  NORMAL
+  URGENT
+}
+model Message {
+  id             String   @id @default(cuid())
+  threadId       String
+  gmailMessageId String
+  fromName       String
+  fromEmail      String
+  toEmail        String?
+  bodySnippet    String?
+  sentAt         DateTime
+  createdAt      DateTime @default(now())
+
+  thread Thread @relation(fields: [threadId], references: [id], onDelete: Cascade)
+
+  @@unique([threadId, gmailMessageId])
+}
+model Chat {
+  id        String   @id @default(cuid())
+  userId    String
+  title     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user     User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  messages ChatMessage[]
+}
+model ChatMessage {
+  id        String   @id @default(cuid())
+  chatId    String
+  role      ChatRole
+  content   String
+  createdAt DateTime @default(now())
+
+  chat      Chat       @relation(fields: [chatId], references: [id], onDelete: Cascade)
+  queueItem QueueItem?
+
+  @@index([chatId, createdAt])
+}
+
+enum ChatRole {
+  USER
+  AGENT
+}
+model QueueItem {
+  id            String        @id @default(cuid())
+  userId        String
+  threadId      String?
+  chatMessageId String?       @unique
+  type          QueueItemType
+  title         String
+  payload       Json
+  status        QueueStatus   @default(PENDING)
+  createdAt     DateTime      @default(now())
+  resolvedAt    DateTime?
+
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  thread      Thread?      @relation(fields: [threadId], references: [id], onDelete: SetNull)
+  chatMessage ChatMessage? @relation(fields: [chatMessageId], references: [id])
+
+  @@index([userId, status])
+}
+
+enum QueueItemType {
+  DRAFT
+  REPLY
+  COMPOSE
+  SEND
+  CALENDAR_INVITE
+  CALENDAR_UPDATE
+  CALENDAR_CANCEL
+}
+
+enum QueueStatus {
+  PENDING
+  APPROVED
+  DISMISSED
+}
+model ToolCall {
+  id        String   @id @default(cuid())
+  userId    String
+  toolName  String 
+  success   Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+}
+model WebhookEvent {
+  id         String   @id @default(cuid())
+  provider   String 
+  eventType  String 
+  externalId String 
+  payload    Json
+  processed  Boolean  @default(false)
+  error      String?
+  createdAt  DateTime @default(now())
+
+  @@unique([provider, externalId])
+  @@index([processed, createdAt])
+}

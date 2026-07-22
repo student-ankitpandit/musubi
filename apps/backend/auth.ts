@@ -1,4 +1,4 @@
-import { betterAuth } from "better-auth/minimal"; // Smaller bundle
+import { betterAuth } from "better-auth/minimal"; 
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { prisma } from "./db";
 
