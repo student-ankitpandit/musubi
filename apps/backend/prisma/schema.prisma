@@ -20,8 +20,6 @@ model User {
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
 
-  corsairTenantId String? @unique
-
   threads       Thread[]
   chats         Chat[]
   queueItems    QueueItem[]
