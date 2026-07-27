@@ -12,10 +12,8 @@ export default function LoginPage() {
     }
 
     return (
-        <div>
-            <button onClick={handleGoogleSignin}>
-                Sign in with google
-            </button>
-        </div>
+        <button onClick={handleGoogleSignin}>
+            Sign in with google
+        </button>
     )
 }
