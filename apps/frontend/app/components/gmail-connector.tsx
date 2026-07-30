@@ -6,7 +6,7 @@ async function connect() {
         credentials: "include",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-            provider: "google"
+            provider: "gmail"
         })        
     })
 
