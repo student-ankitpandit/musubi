@@ -11,11 +11,14 @@ const db = new Pool({
 export const corsair = createCorsair({
     kek: process.env.CORSAIR_KEK!,
     database: db,
+    multiTenancy: true,
     hub: {
         projectApiKey: process.env.CORSAIR_DEV_API_KEY!,
         signingSecret: process.env.CORSAIR_DEV_SIGNING_SECRET!,
     },
     plugins: [
-        gmail(), googlecalendar()
+        gmail(), 
+        googlecalendar()
     ],
 });
+

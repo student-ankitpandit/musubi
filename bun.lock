@@ -21,7 +21,7 @@
         "@prisma/adapter-pg": "^7.9.0",
         "@prisma/client": "^7.8.0",
         "cors": "^2.8.6",
-        "corsair": "^0.1.102",
+        "corsair": "^0.1.110",
         "dotenv": "^17.4.2",
         "express": "^5.2.1",
         "pg": "^8.22.0",
@@ -806,7 +806,7 @@
 
     "cors": ["cors@2.8.6", "", { "dependencies": { "object-assign": "^4", "vary": "^1" } }, "sha512-tJtZBBHA6vjIAaF6EnIaq6laBBP9aq/Y3ouVJjEfoHbRBcHBAHYcMh/w8LDrk2PvIMMq8gmopa5D4V8RmbrxGw=="],
 
-    "corsair": ["corsair@0.1.102", "", { "dependencies": { "kysely": "^0.28.5", "kysely-postgres-js": "^3.0.0", "uuid": "^13.0.0", "zod": "^4.1.13" }, "peerDependencies": { "react": ">=18.0.0" }, "optionalPeers": ["react"] }, "sha512-TNHfvhWnDiQ6jA8ftGpSrj6sGJczorNPLZd51U45kr4MaAC/9jYLR5HycMUMX76mOyG8HQv6DQSLHMC+l+v7Qg=="],
+    "corsair": ["corsair@0.1.110", "", { "dependencies": { "kysely": "^0.28.5", "kysely-postgres-js": "^3.0.0", "uuid": "^13.0.0", "zod": "^4.1.13" }, "peerDependencies": { "react": ">=18.0.0" }, "optionalPeers": ["react"] }, "sha512-Cmpp58EOfedEAwA1X/Ld0cSKoGuACAW1uouNXm39uIGO7RMmktGCb5o5FQp/1NXadGpGsB7sB/Z1Z/q9njIqWQ=="],
 
     "create-jest": ["create-jest@29.7.0", "", { "dependencies": { "@jest/types": "^29.6.3", "chalk": "^4.0.0", "exit": "^0.1.2", "graceful-fs": "^4.2.9", "jest-config": "^29.7.0", "jest-util": "^29.7.0", "prompts": "^2.0.1" }, "bin": { "create-jest": "bin/create-jest.js" } }, "sha512-Adz2bdH0Vq3F53KEMJOoftQFutWCukm6J24wbPWRO4k1kMY7gS7ds/uoJkNuV8wDCtWWnuwGcJwpWcih+zEW1Q=="],
 
